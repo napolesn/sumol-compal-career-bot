@@ -1,26 +1,32 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ChatWindow } from "@/components/ChatWindow";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "Recrutador Virtual · Sumol Compal" },
+      {
+        name: "description",
+        content:
+          "Conversa com o Recrutador Virtual da Sumol Compal sobre Oportunidades, Estágios e Candidaturas Espontâneas em Portugal.",
+      },
+      { property: "og:title", content: "Recrutador Virtual · Sumol Compal" },
+      {
+        property: "og:description",
+        content:
+          "Assistente de recrutamento virtual da Sumol Compal: oportunidades, estágios e candidaturas espontâneas.",
+      },
+    ],
+  }),
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
-
 function Index() {
-  return <PlaceholderIndex />;
+  return (
+    <main className="min-h-dvh w-full bg-background">
+      <div className="mx-auto flex min-h-dvh max-w-3xl flex-col px-3 py-2 sm:px-6 sm:py-4">
+        <ChatWindow />
+      </div>
+    </main>
+  );
 }
