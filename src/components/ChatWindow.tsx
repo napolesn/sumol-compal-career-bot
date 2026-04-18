@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { Send, Bot, User } from "lucide-react";
+import { Send, Bot, User, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Msg = { role: "user" | "assistant"; content: string };
@@ -149,6 +149,16 @@ export function ChatWindow() {
     }
   };
 
+  const reset = () => {
+    if (isLoading) return;
+    setMessages([INITIAL_MESSAGE]);
+    setInput("");
+    setError(null);
+    inputRef.current?.focus();
+  };
+
+  const hasConversation = messages.length > 1;
+
   return (
     <div className="flex h-[calc(100dvh-1rem)] max-h-[920px] w-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-elegant)]">
       {/* Header */}
@@ -167,10 +177,17 @@ export function ChatWindow() {
             Recrutador Virtual · Portugal
           </p>
         </div>
-        <span className="ml-auto inline-flex items-center gap-1.5 rounded-full bg-primary-foreground/15 px-2.5 py-1 text-[11px] font-medium text-primary-foreground ring-1 ring-primary-foreground/25">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-          Ao vivo
-        </span>
+        <button
+          type="button"
+          onClick={reset}
+          disabled={isLoading || !hasConversation}
+          aria-label="Iniciar nova entrevista"
+          title="Iniciar nova entrevista"
+          className="ml-auto inline-flex items-center gap-1.5 rounded-full bg-primary-foreground/15 px-2.5 py-1 text-[11px] font-medium text-primary-foreground ring-1 ring-primary-foreground/25 transition hover:bg-primary-foreground/25 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          <RotateCcw className="h-3 w-3" />
+          Nova entrevista
+        </button>
       </header>
 
       {/* Messages */}
